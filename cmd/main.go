@@ -1,22 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 func main() {
-	for true {
-		fmt.Printf("go-sql > ")
-		args := os.Args[1:]
-		fmt.Println(args)
+	log.SetFlags(0)
 
-		if ok := checkExit(); ok {
+	cobra.EnableCommandSorting = false
 
-		}
+	rootCmd := &cobra.Command{
+		Use:   "goldfolye",
+		Short: "Goldfolye is a SQL database",
 	}
-}
 
-func checkExit() bool {
-	return false
+	if err := rootCmd.Execute(); err != nil {
+		os.Exit(1)
+	}
 }
