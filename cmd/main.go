@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	l, err := readline.NewEx(&readline.Config{
+	input, err := readline.NewEx(&readline.Config{
 		Prompt:          "\033[31m#\033[0m ",
 		HistoryFile:     "/tmp/readline.tmp",
 		InterruptPrompt: "^C",
@@ -17,13 +17,13 @@ func main() {
 		panic(err)
 	}
 
-	defer l.Close()
+	defer input.Close()
 
 	fmt.Println("This is Goldfoyle.")
 
-repl:
+prompt:
 	for {
-		line, err := l.Readline()
+		line, err := input.Readline()
 		if err == readline.ErrInterrupt {
 			if len(line) == 0 {
 				break
@@ -35,8 +35,8 @@ repl:
 		}
 
 		if err != nil {
-			fmt.Println("Error while reading line:", err)
-			continue repl
+			fmt.Printf("Error while reading line: %s", err)
+			continue prompt
 		}
 	}
 }
