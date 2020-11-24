@@ -2,24 +2,17 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
 
-	"github.com/spf13/cobra"
+	"github.com/chzyer/readline"
 )
 
 func main() {
-	log.SetFlags(0)
-
-	cobra.EnableCommandSorting = false
-
-	rootCmd := &cobra.Command{
-		Use:   "goldfolye",
-		Short: "Goldfolye is a SQL database",
-		Run:   func(cmd *cobra.Command, args []string) { fmt.Println("Hello Goldfoyle") },
+	l, err := readline.NewEx(&readline.Config{})
+	if err != nil {
+		panic(err)
 	}
 
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
-	}
+	defer l.Close()
+
+	fmt.Println("This is Goldfoyle.")
 }
